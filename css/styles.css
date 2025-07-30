@@ -1,0 +1,122 @@
+/* Setting Main Variables */
+:root {
+  --accent-color: #b72929;
+  --light-color: #f3f3f3;
+  --dark-color: #161616;
+}
+
+/* Resetting CSS */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 62.5%;
+  /* 62.5% of browser default => 1 rem = 10px */
+}
+
+body {
+  padding: 0 2.4rem;
+  font-size: 1.6rem;
+  color: var(--light-color);
+  background-color: var(--dark-color);
+  font-family: "Mulish", system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-size: 4.8rem;
+  line-height: 0.85;
+  margin-bottom: 2.4rem;
+  font-family: "Grenze", system-ui, sans-serif;
+}
+
+nav,
+main,
+nav a {
+  display: flex;
+  flex: 1 1 auto;
+}
+
+main {
+  flex-direction: column;
+}
+
+/* Navigation Bar */
+nav {
+  position: fixed;
+  max-width: 30rem;
+  justify-self: center;
+  justify-content: space-between;
+  bottom: 5rem;
+  gap: 8px;
+}
+
+nav a {
+  padding: 2rem;
+  border-radius: 1.2rem;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.207);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  align-items: center;
+  justify-content: center;
+}
+
+/* On hover: slight brightness effect */
+nav a:hover,
+.nav-link.active {
+  border: 1px solid rgba(255, 255, 255, 0.674);
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+/* Icon sizing */
+.nav-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  transition: filter 0.3s ease;
+  filter: brightness(0) invert(0.4); /* default gray-ish */
+}
+
+nav a:hover .nav-icon,
+.nav-link.active .nav-icon {
+  filter: brightness(0) invert(1); /* makes it look white */
+}
+/* Text & CTA Styles*/
+
+/* Footer */
+
+/* Media Queries */
+@media (min-width: 768px) {
+  body {
+    padding: 0 7.2rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-size: 5.6rem;
+  }
+
+  nav {
+    gap: 1.2rem;
+  }
+
+  nav a {
+    padding: 2rem;
+  }
+
+  .nav-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}
