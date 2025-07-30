@@ -16,7 +16,9 @@ function setActiveLink() {
   while (--index >= 0 && window.scrollY + 100 < sections[index].offsetTop) {}
 
   clearActiveLinks();
-  if (navLinks[index]) navLinks[index].classList.add("active");
+  if (index >= 0 && navLinks[index]) {
+    navLinks[index].classList.add("active");
+  }
 }
 
 // Call on scroll
@@ -27,23 +29,14 @@ navLinks.forEach((link) => {
   link.addEventListener("click", function () {
     clearActiveLinks();
     this.classList.add("active");
+    // Remove focus to prevent mobile sticky highlight
+    this.blur();
+  });
+  // Remove focus on touchstart for mobile
+  link.addEventListener("touchstart", function () {
+    this.blur();
   });
 });
 
 // Run on page load
 setActiveLink();
-
-window.addEventListener("scroll", () => {
-  if (document.activeElement instanceof HTMLElement) {
-    document.activeElement.blur();
-  }
-});
-
-document.querySelectorAll("nav a").forEach((link) => {
-  link.addEventListener("touchend", () => {
-    link.blur();
-  });
-  link.addEventListener("click", () => {
-    link.blur();
-  });
-});
