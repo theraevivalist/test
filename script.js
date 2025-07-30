@@ -29,14 +29,6 @@ function setActiveLink() {
   }
 }
 
-// Handle manual clicks
-navLinks.forEach(link => {
-  link.addEventListener("click", function () {
-    clearActiveLinks();
-    this.classList.add("active");
-    this.blur();
-  });
-
   link.addEventListener("touchstart", function () {
     this.blur();
   });
