@@ -1,38 +1,47 @@
 "use strict";
 
-// Get sections and nav links
-const sections = document.querySelectorAll("main section");
+// Grab nav links and sections
 const navLinks = document.querySelectorAll(".nav-link");
+const sections = document.querySelectorAll("main section");
 
-// Clear all .active classes
+// Clear all active classes
 function clearActiveLinks() {
-  navLinks.forEach(link => link.classList.remove("active"));
+  document.querySelectorAll(".nav-link.active").forEach(link => {
+    link.classList.remove("active");
+  });
 }
 
-// Set active nav link based on scroll position
+// Set active link on scroll
 function setActiveLink() {
-  let index = sections.length;
-  while (--index >= 0 && window.scrollY + 100 < sections[index].offsetTop) {}
+  let fromTop = window.scrollY + 150;
 
-  if (index >= 0 && navLinks[index]) {
-    clearActiveLinks(); // Enforce single active
-    navLinks[index].classList.add("active");
+  let currentSection = [...sections].find((section) =>
+    fromTop >= section.offsetTop && fromTop < section.offsetTop + section.offsetHeight
+  );
+
+  if (currentSection) {
+    let id = currentSection.getAttribute("id");
+    let targetLink = document.querySelector(`.nav-link[href="#${id}"]`);
+    if (targetLink) {
+      clearActiveLinks();
+      targetLink.classList.add("active");
+    }
   }
 }
 
-// Handle click on nav links
+// Handle manual clicks
 navLinks.forEach(link => {
   link.addEventListener("click", function () {
-    clearActiveLinks();          // Remove from all
-    this.classList.add("active"); // Add to clicked
-    this.blur();                  // Remove focus glow on mobile
+    clearActiveLinks();
+    this.classList.add("active");
+    this.blur();
   });
 
   link.addEventListener("touchstart", function () {
-    this.blur(); // Remove focus on touch devices
+    this.blur();
   });
 });
 
-// Sync on scroll and page load
+// On scroll and load
 window.addEventListener("scroll", setActiveLink);
-setActiveLink();
+window.addEventListener("load", setActiveLink);
