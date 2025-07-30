@@ -32,3 +32,18 @@ navLinks.forEach((link) => {
 
 // Run on page load
 setActiveLink();
+
+window.addEventListener("scroll", () => {
+  if (document.activeElement instanceof HTMLElement) {
+    document.activeElement.blur();
+  }
+});
+
+document.querySelectorAll("nav a").forEach((link) => {
+  link.addEventListener("touchend", () => {
+    link.blur();
+  });
+  link.addEventListener("click", () => {
+    link.blur();
+  });
+});
