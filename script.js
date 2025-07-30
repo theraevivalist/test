@@ -1,42 +1,38 @@
 "use strict";
 
-// Get all sections and nav links
+// Get sections and nav links
 const sections = document.querySelectorAll("main section");
 const navLinks = document.querySelectorAll(".nav-link");
 
-// Function to remove .active from all nav links
+// Clear all .active classes
 function clearActiveLinks() {
-  navLinks.forEach((link) => link.classList.remove("active"));
+  navLinks.forEach(link => link.classList.remove("active"));
 }
 
-// Function to set active link based on current section
+// Set active nav link based on scroll position
 function setActiveLink() {
   let index = sections.length;
-
   while (--index >= 0 && window.scrollY + 100 < sections[index].offsetTop) {}
 
-  clearActiveLinks();
   if (index >= 0 && navLinks[index]) {
+    clearActiveLinks(); // Enforce single active
     navLinks[index].classList.add("active");
   }
 }
 
-// Call on scroll
-window.addEventListener("scroll", setActiveLink);
-
-// Also allow clicking nav to manually set active (if scroll behavior is smooth)
-navLinks.forEach((link) => {
+// Handle click on nav links
+navLinks.forEach(link => {
   link.addEventListener("click", function () {
-    clearActiveLinks();
-    this.classList.add("active");
-    // Remove focus to prevent mobile sticky highlight
-    this.blur();
+    clearActiveLinks();          // Remove from all
+    this.classList.add("active"); // Add to clicked
+    this.blur();                  // Remove focus glow on mobile
   });
-  // Remove focus on touchstart for mobile
+
   link.addEventListener("touchstart", function () {
-    this.blur();
+    this.blur(); // Remove focus on touch devices
   });
 });
 
-// Run on page load
+// Sync on scroll and page load
+window.addEventListener("scroll", setActiveLink);
 setActiveLink();
